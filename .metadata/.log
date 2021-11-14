@@ -242,3 +242,30 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2021-11-14 13:07:36.162
 !MESSAGE Started RMI Server, listening on port 41343
+!SESSION 2021-11-14 23:39:27.925 -----------------------------------------------
+eclipse.buildId=Version 1.7.0
+java.version=11.0.10
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2021-11-14 23:39:46.331
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2021-11-14 23:39:46.377
+!MESSAGE Log4j initialized with config file C:\Users\binar\Desktop\Quartz Arc\QA Codebase Repos\QA_STM32F429IDISC1\QuartzArc_STM32F429I_Disc1\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2021-11-14 23:39:52.564
+!MESSAGE Started RMI Server, listening on port 41338
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-11-14 23:47:48.558
+!MESSAGE Indexed 'STM32_F429D' (99 sources, 232 headers) in 8.05 sec: 21,864 declarations; 98,937 references; 2 unresolved inclusions; 42 syntax errors; 715 unresolved names (0.59%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-11-14 23:58:26.974
+!MESSAGE Indexed 'STM32_F429D' (101 sources, 234 headers) in 6.46 sec: 22,042 declarations; 100,057 references; 2 unresolved inclusions; 42 syntax errors; 715 unresolved names (0.58%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-11-15 00:05:40.155
+!MESSAGE Indexed 'STM32_F429D' (102 sources, 367 headers) in 9.48 sec: 36,277 declarations; 119,162 references; 3 unresolved inclusions; 42 syntax errors; 741 unresolved names (0.47%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-11-15 00:25:50.049
+!MESSAGE Indexed 'STM32_F429D' (105 sources, 369 headers) in 11.4 sec: 36,370 declarations; 119,642 references; 2 unresolved inclusions; 42 syntax errors; 689 unresolved names (0.44%)

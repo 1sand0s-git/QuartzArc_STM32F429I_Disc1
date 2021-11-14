@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;STM32_F429D/QA_Systems/QAS_Serial/QAD_Serial_Dev_Base.hpp&apos; to &apos;QAS_Serial_Dev_Base.hpp&apos;" description="Rename resource &apos;QAD_Serial_Dev_Base.hpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="QA_Systems/QAS_Serial/QAD_Serial_Dev_Base.hpp" name="QAS_Serial_Dev_Base.hpp" stamp="1636898378992" updateReferences="true"/>
+</session>
