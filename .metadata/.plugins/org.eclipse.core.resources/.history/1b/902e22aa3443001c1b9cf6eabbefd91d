@@ -1,0 +1,93 @@
+/* ----------------------------------------------------------------------- */
+/*                                                                         */
+/*   Quartz Arc                                                            */
+/*                                                                         */
+/*   STM32 F429I Discovery                                                 */
+/*                                                                         */
+/*   System: Core                                                          */
+/*   Role: System Initialization                                           */
+/*   Filename: boot.cpp                                                    */
+/*   Date: 11th November 2021                                              */
+/*   Created By: Benjamin Rosser                                           */
+/*                                                                         */
+/*   This code is covered by Creative Commons CC-BY-NC-SA license          */
+/*   (C) Copyright 2021 Benjamin Rosser                                    */
+/*                                                                         */
+/* ----------------------------------------------------------------------- */
+
+//Includes
+#include "boot.hpp"
+
+
+	//------------------------------------------
+	//------------------------------------------
+	//------------------------------------------
+
+  //-------------------------------
+  //-------------------------------
+  //System Initialization Functions
+
+//SystemInitialize
+//System Initialization Function
+//
+//Used to initialize CPU caches, NVIC and SysTick, as well as oscillators, PLLs, system clocks, bus clocks and some peripheral clocks.
+//Also enables all GPIOs
+//
+//Returns QA_OK if successful, or QA_Fail if initialized failed
+QA_Result SystemInitialize(void) {
+
+	//-----------------------
+  //Enable Cache & Prefetch
+	__HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
+	__HAL_FLASH_DATA_CACHE_ENABLE();
+	__HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+
+
+	//--------------------------
+	//Set NVIC Priority Grouping
+	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+
+
+	//------------
+	//Init SysTick
+	if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK)
+		return QA_Fail;
+
+
+	//-------------------------
+	//Setup Power Configuration
+	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_PWM_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+
+	//Configure Oscillators
+	//
+	//
+	RCC_OscInitTypeDef RCC_OscInit = {0};
+	RCC_OscInit.OscillatorType = RCC_OSCILLATORTYPE_HSE; //Define which oscillator is to be configured
+	RCC_OscInit.HSEState       = RCC_HSE_BYPASS;         //Set High Speed Extenral oscillator as system clock
+	RCC_OscInit.PLL.PLLState   = RCC_PLL_ON;             //Enable primary PLL
+	RCC_OscInit.PLL.PLLSource  = RCC_PLLSOURCE_HSE;      //Set High Speed External oscillator as PLL input c;pcl
+
+	  //Set PLL Values required for 168MHz system clock
+	  //NOTE: Maximum system clock speed for this device is 180MHz, but clock is having to be limited to 168MHz
+	  //due to primary PLL also needing to generate 48MHz clock for USB internal PHY
+	RCC_OscInit.PLL.PLLM       = 4;
+	RCC_OscInit.PLL.PLLN       = 168;
+	RCC_OscInit.PLL.PLLP       = RCC_PLLP_DIV2;          //Divider for system clock
+	RCC_OscInit.PLL.PLLQ       = 7;                      //Divider for 48MHz USB PHY clock
+
+	if (HAL_RCC_OscConfig(&RCC_OscInit) != HAL_OK) {     //Initialize oscillators using values in init structure
+		return QA_Fail;
+	}
+
+
+	//Return
+	return QA_OK;
+}
+
+
+
+
+
+
