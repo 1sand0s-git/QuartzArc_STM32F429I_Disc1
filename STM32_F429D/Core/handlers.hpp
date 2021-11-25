@@ -48,6 +48,9 @@ void SysTick_Handler(void);
   //---------------------------
   //Interrupt Handler Functions
 
+void USART1_IRQHandler(void);
+
+
 }
 
 

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;STM32_F429D/QA_Drviers&apos; to &apos;QA_Drivers&apos;" description="Rename resource &apos;QA_Drviers&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="QA_Drviers" name="QA_Drivers" stamp="1637806295167" updateReferences="true"/>
+</session>

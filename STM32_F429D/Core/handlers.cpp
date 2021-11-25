@@ -18,6 +18,19 @@
 //Includes
 #include "handlers.hpp"
 
+#include "QAD_GPIO.hpp"
+#include "QAS_Serial_Dev_UART.hpp"
+
+
+	//------------------------------------------
+	//------------------------------------------
+	//------------------------------------------
+
+extern QAS_Serial_Dev_UART* UART_STLink;
+
+extern QAD_GPIO_Output* GPIO_UserLED_Red;
+extern QAD_GPIO_Output* GPIO_UserLED_Green;
+
 
 	//------------------------------------------
 	//------------------------------------------
@@ -37,6 +50,8 @@ void NMI_Handler(void) {
 //HardFault_Handler
 //Exception Handler Function
 void HardFault_Handler(void) {
+	GPIO_UserLED_Red->on();
+	GPIO_UserLED_Green->on();
   while(1) {}
 }
 
@@ -44,6 +59,8 @@ void HardFault_Handler(void) {
 //MemManage_Handler
 //Exception Handler Function
 void MemManage_Handler(void) {
+	GPIO_UserLED_Red->on();
+	GPIO_UserLED_Green->on();
   while(1) {}
 }
 
@@ -51,6 +68,8 @@ void MemManage_Handler(void) {
 //BusFault_Handler
 //Exception Handler Function
 void BusFault_Handler(void) {
+	GPIO_UserLED_Red->on();
+	GPIO_UserLED_Green->on();
   while(1) {}
 }
 
@@ -58,6 +77,8 @@ void BusFault_Handler(void) {
 //UsageFault_Handler
 //Exception Handler Function
 void UsageFault_Handler(void) {
+	GPIO_UserLED_Red->on();
+	GPIO_UserLED_Green->on();
   while(1) {}
 }
 
@@ -87,7 +108,6 @@ void PendSV_Handler(void) {
 //Exception Handler Function
 void SysTick_Handler(void) {
   HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
 }
 
 
@@ -98,5 +118,12 @@ void SysTick_Handler(void) {
   //---------------------------
   //---------------------------
   //Interrupt Handler Functions
+
+
+//USART1_Handler
+//Interrupt Handler Function
+void USART1_IRQHandler(void) {
+  UART_STLink->handler(NULL);
+}
 
 

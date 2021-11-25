@@ -1,0 +1,100 @@
+/* ----------------------------------------------------------------------- */
+/*                                                                         */
+/*   Quartz Arc                                                            */
+/*                                                                         */
+/*   STM32 F429I Discovery                                                 */
+/*                                                                         */
+/*   System: Core                                                          */
+/*   Role: Application Entry Point                                         */
+/*   Filename: main.cpp                                                    */
+/*   Date: 11th November 2021                                              */
+/*   Created By: Benjamin Rosser                                           */
+/*                                                                         */
+/*   This code is covered by Creative Commons CC-BY-NC-SA license          */
+/*   (C) Copyright 2021 Benjamin Rosser                                    */
+/*                                                                         */
+/* ----------------------------------------------------------------------- */
+
+//Includes
+#include "main.hpp"
+
+
+	//------------------------------------------
+	//------------------------------------------
+	//------------------------------------------
+
+
+//main
+//Application Entry Point
+//
+//This is the first C++ function to be called when the microcontroller starts up
+//This function is called by the assembly language in startup_stm32f407vgtx.s
+int main(void) {
+
+
+	//Calls the SystemInitialize method located within boot.hpp, which initializes the
+	//CPU caches, as well as the PLLs, system, bus and some peripheral clocks.
+	//All GPIO Port and DMA clocks are also enabled by this method.
+  if (SystemInitialize()) {
+  	while (1) {}
+  }
+
+
+  //----------------------------------
+	//----------------------------------
+  //Processing Loop
+
+	//Create processing loop timing variables
+	uint32_t uTicks;
+	uint32_t uCurTick;
+	uint32_t uNewTick = HAL_GetTick();
+	uint32_t uOldTick = uNewTick;
+
+	//Create task timing variables
+	uint32_t uInputTicks     = 0;
+	uint32_t uHeartbeatTicks = 0;
+
+
+	//-----------------------------------
+	//Infinite loop for device processing
+	while (1) {
+
+		//----------------------------------
+		//Frame Timing
+		//Calculates how many ticks (in milliseconds) have passed since the previous loop, this value is placed into the uTicks variable
+		//uTicks is then used to calculate task timing below
+    uCurTick = HAL_GetTick();
+    if (uCurTick != uNewTick) { //Handle loop faster than 1ms issue
+    	uOldTick = uNewTick;
+    	uNewTick = uCurTick;
+    	if (uNewTick < uOldTick) { //Handle 32bit overflow issue
+    		uTicks = (uNewTick + (0xFFFFFFFF - uOldTick));
+    	} else {
+    		uTicks = (uNewTick - uOldTick);
+    	}
+
+    } else {
+    	uTicks = 0;
+    }
+
+
+  	//----------------------------------
+    //Update Heartbeat LED
+    //The heartbeat LED uses the User LED to flash at a regular rate to visually show whether the microcontroller has locked up or
+    //become stuck in an exception or interrupt handler
+    uHeartbeatTicks += uTicks;
+    if (uHeartbeatTicks >= QA_FT_HeartbeatTickThreshold) { //If heartbeat ticks has exceeded threshold then update heartbeat LED
+    	GPIO_UserLED_Green->toggle();
+    	uHeartbeatTicks -= QA_FT_HeartbeatTickThreshold;     //Reset hearbeat ticks
+    }
+
+	}
+
+
+	//This return value is unused, but is included in the source code to prevent compiler warning that main() doesn't return a value
+	return 0;
+}
+
+
+
+

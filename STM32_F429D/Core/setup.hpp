@@ -50,12 +50,58 @@ enum QA_ActiveState : uint8_t {QA_Inactive = 0, QA_Active};
 
 
 
+//----------------------------------------
+//----------------------------------------
+//----------------------------------------
+
+
+//-------------------------------
+//QAD_IRQHandler_CallbackFunction
+//This is a generic callback function pointer definition that is used within drivers / systems.
+typedef void (*QAD_IRQHandler_CallbackFunction)(void* pData);
+
+
+//----------------------------
+//QAD_IRQHandler_CallbackClass
+//This is a generic class definition to be inherited by a parent class that requires the handler method to be called by drivers / systems.
+class QAD_IRQHandler_CallbackClass {
+public:
+
+  virtual void handler(void* pData) = 0; //This is a pure virtual function that must be defined within the inheriting/parent class
+};
+
+
 	//----------------------------------------
 	//----------------------------------------
 	//----------------------------------------
 
 	//----------------
 	//GPIO Definitions
+
+#define QAD_USERLED_GREEN_GPIO_PORT     GPIOG
+#define QAD_USERLED_GREEN_GPIO_PIN      GPIO_PIN_13  //G13
+
+#define QAD_USERLED_RED_GPIO_PORT       GPIOG
+#define QAD_USERLED_RED_GPIO_PIN        GPIO_PIN_14  //G14
+
+#define QAD_USERBUTTON_GPIO_PORT        GPIOA
+#define QAD_USERBUTTON_GPIO_PIN         GPIO_PIN_0   //A0
+
+
+//-----------------
+//UART1 Definitions
+//
+//These are used for the UART/Serial link via STLink on the STM32F769I Discovery board
+
+#define QAD_UART1_TX_PORT     GPIOA
+#define QAD_UART1_TX_PIN      GPIO_PIN_9        //A9
+#define QAD_UART1_TX_AF       GPIO_AF7_USART1
+#define QAD_UART1_RX_PORT     GPIOA
+#define QAD_UART1_RX_PIN      GPIO_PIN_10       //A10
+#define QAD_UART1_RX_AF       GPIO_AF7_USART1
+#define QAD_UART1_BAUDRATE    57600
+#define QAD_UART1_TX_FIFOSIZE 256
+#define QAD_UART1_RX_FIFOSIZE 256
 
 
 	//------------------------------------------
@@ -64,6 +110,11 @@ enum QA_ActiveState : uint8_t {QA_Inactive = 0, QA_Active};
 
 	//----------------------------
 	//Interrupt Request Priorities
+
+#define QAD_IRQPRIORITY_UART1    ((uint8_t) 0x09) //Priority for the TX/RX interrupts for UART1 handler,
+                                                //which is used for serial via STLink on the STM32F429I Discovery board.
+
+#define QAD_IRQPRIORITY_EXTI     ((uint8_t) 0x0A) //Priority to be used by external interrupt handlers. Shared by all external interrupts
 
 
 //Prevent Recursive Inclusion

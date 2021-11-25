@@ -9,6 +9,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include QA_Tools/subdir.mk
+-include QA_Systems/QAS_Serial/subdir.mk
+-include QA_Drivers/QAD_PeripheralManagers/subdir.mk
+-include QA_Drivers/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/Legacy/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
@@ -77,8 +81,8 @@ all: main-build
 main-build: STM32_F429D.elf secondary-outputs
 
 # Tool invocations
-STM32_F429D.elf: $(OBJS) $(USER_OBJS) C:\Users\binar\Desktop\Test429\STM32_F429D\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "STM32_F429D.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\binar\Desktop\Test429\STM32_F429D\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_F429D.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+STM32_F429D.elf: $(OBJS) $(USER_OBJS) C:\Users\binar\Desktop\Quartz\ Arc\QA\ Codebase\ Repos\QA_STM32F429IDISC1\QuartzArc_STM32F429I_Disc1\STM32_F429D\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "STM32_F429D.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\binar\Desktop\Quartz Arc\QA Codebase Repos\QA_STM32F429IDISC1\QuartzArc_STM32F429I_Disc1\STM32_F429D\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_F429D.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
