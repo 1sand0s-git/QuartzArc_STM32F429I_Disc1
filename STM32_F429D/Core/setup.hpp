@@ -112,7 +112,7 @@ public:
 	//Interrupt Request Priorities
 
 #define QAD_IRQPRIORITY_UART1    ((uint8_t) 0x09) //Priority for the TX/RX interrupts for UART1 handler,
-                                                //which is used for serial via STLink on the STM32F429I Discovery board.
+                                                  //which is used for serial via STLink on the STM32F429I Discovery board.
 
 #define QAD_IRQPRIORITY_EXTI     ((uint8_t) 0x0A) //Priority to be used by external interrupt handlers. Shared by all external interrupts
 

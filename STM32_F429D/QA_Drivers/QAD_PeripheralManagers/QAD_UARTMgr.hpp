@@ -73,9 +73,9 @@ typedef struct {
 
 	QAD_UART_State    eState;     //Stores whether the UART peripheral is currently being used or not
 
-	USART_TypeDef*    pInstance;  //Stores the USART_TypeDef for the UART peripheral (defined in stm32f411xe.h)
+	USART_TypeDef*    pInstance;  //Stores the USART_TypeDef for the UART peripheral (defined in stm32f429xx.h)
 
-	IRQn_Type         eIRQ;       //Stores the IRQ Handler enum for the UART peripheral (defined in stm32f411xe.h)
+	IRQn_Type         eIRQ;       //Stores the IRQ Handler enum for the UART peripheral (defined in stm32f429xx.h)
 
 } QAD_UART_Data;
 
